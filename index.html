@@ -37,7 +37,8 @@
             font-family: 'Nunito', 'Comic Sans MS', sans-serif;
             background: var(--bg-gradient);
             color: var(--text-main);
-            height: 100vh;
+            height: 100dvh; /* Fixes mobile toolbar hiding */
+            min-height: 100vh;
             width: 100vw;
             overflow: hidden;
             display: flex;
@@ -52,7 +53,7 @@
             justify-content: center;
             width: 100%;
             height: 100%;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             position: relative;
         }
@@ -78,7 +79,7 @@
         .instruction-text {
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             color: #6a1b9a;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             min-height: 50px;
             font-weight: 800;
             text-shadow: 2px 2px 0px #fff;
@@ -156,24 +157,24 @@
             display: flex;
             gap: 15px;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
             width: 100%;
             max-width: 900px;
             flex: 1;
-            align-content: center;
             padding-bottom: 20px;
             position: relative;
         }
         
         .letter-block {
-            width: clamp(80px, 20vw, 140px);
-            height: clamp(80px, 20vw, 140px);
+            width: clamp(75px, 18vw, 140px);
+            height: clamp(75px, 18vw, 140px);
             background-color: white;
             border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(3rem, 7vw, 5rem);
+            font-size: clamp(2.5rem, 6vw, 5rem);
             font-weight: 900;
             color: var(--text-main);
             cursor: pointer;
@@ -181,6 +182,7 @@
             border: 6px solid var(--primary);
             text-transform: lowercase;
             transition: transform 0.2s;
+            touch-action: none;
         }
         
         .bubble-block {
@@ -216,7 +218,7 @@
             justify-content: space-between;
             width: 100%;
             padding: 0 15%;
-            font-size: clamp(4rem, 12vw, 6rem);
+            font-size: clamp(3.5rem, 10vw, 6rem);
             font-weight: 900;
             color: var(--text-main);
             margin-bottom: 20px;
@@ -245,6 +247,7 @@
             box-shadow: 0 8px 0px #f57f17;
             cursor: grab;
             z-index: 5;
+            touch-action: none;
         }
         .slider-progress {
             height: 100%;
@@ -262,8 +265,8 @@
         }
         .frozen-emoji-pop {
             position: absolute;
-            top: -60px;
-            font-size: clamp(5rem, 15vw, 8rem);
+            top: -70px;
+            font-size: clamp(4.5rem, 12vw, 8rem);
             opacity: 0;
             filter: drop-shadow(0 10px 5px rgba(0,0,0,0.2));
             z-index: 10;
@@ -277,32 +280,25 @@
             position: relative;
             margin-top: 40px;
         }
-        
-        .frozen-slot {
+        .frozen-slot, .frozen-block {
             width: clamp(70px, 18vw, 120px);
             height: clamp(80px, 20vw, 130px);
-            border: 4px dashed #90caf9;
-            background: rgba(255,255,255,0.5);
-            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: clamp(3.5rem, 8vw, 5rem);
             font-weight: 900;
+            border-radius: 15px;
+        }
+        .frozen-slot {
+            border: 4px dashed #90caf9;
+            background: rgba(255,255,255,0.5);
             color: var(--primary);
             transform-style: preserve-3d;
         }
         .frozen-block {
-            width: clamp(70px, 18vw, 120px);
-            height: clamp(80px, 20vw, 130px);
             background: var(--icy-bg);
             border: 4px solid #00bcd4;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(3.5rem, 8vw, 5rem);
-            font-weight: 900;
             color: #006064;
             box-shadow: inset 0 5px 10px rgba(255,255,255,0.8), 0 6px 0px #0097a7;
             text-shadow: 1px 1px 0px #fff;
@@ -327,12 +323,12 @@
             border: 4px solid white;
         }
         .story-picture {
-            font-size: clamp(4rem, 12vw, 6rem);
+            font-size: clamp(3.5rem, 10vw, 6rem);
             margin-bottom: 20px;
             filter: drop-shadow(0 10px 5px rgba(0,0,0,0.1));
         }
         .story-text {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-size: clamp(1.3rem, 3.5vw, 2.2rem);
             line-height: 1.8;
             font-weight: 800;
             display: flex;
@@ -363,18 +359,21 @@
             box-shadow: 0 4px 0px #c51162;
         }
 
+        /* Fixed Mobile Layout for Drag & Drop Stage */
         .drag-container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             width: 100%;
             height: 100%;
-            justify-content: space-between;
+            gap: 30px; /* Space between targets and items */
         }
         .drop-zones {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            justify-content: center;
+            width: 100%;
         }
         .drop-zone {
             width: clamp(70px, 18vw, 110px);
@@ -396,14 +395,18 @@
             box-shadow: 0 8px 0px var(--accent);
             color: var(--primary);
         }
+        
+        /* Flexbox for Draggable Area */
         .drag-items-area {
             display: flex;
             gap: 15px;
-            margin-bottom: 20px;
-            min-height: 130px;
-            align-items: flex-end;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Allows wrapping on small screens */
+            width: 100%;
             position: relative;
         }
+        
         .draggable-tile {
             width: clamp(70px, 18vw, 110px);
             height: clamp(80px, 20vw, 120px);
@@ -418,24 +421,24 @@
             color: #e65100;
             box-shadow: 0 8px 0px #ffb300;
             cursor: grab;
-            position: absolute;
+            position: relative; /* Normal document flow */
             touch-action: none; 
             z-index: 20;
         }
         .draggable-tile.dragging {
             z-index: 100;
-            opacity: 0.9;
-            transform: scale(1.1);
-            box-shadow: 0 15px 15px rgba(0,0,0,0.2);
+            opacity: 0.95;
+            box-shadow: 0 15px 15px rgba(0,0,0,0.3);
         }
         .drag-emoji-pop {
             position: absolute;
-            top: 20%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
             font-size: clamp(6rem, 20vw, 10rem);
             z-index: 5;
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
         }
         .drag-emoji-pop.show {
             transform: translate(-50%, -50%) scale(1);
@@ -464,8 +467,8 @@
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
-            40% { transform: translateY(-30px) scale(1.1); }
-            60% { transform: translateY(-15px) scale(1.05); }
+            40% { transform: translateY(-20px) scale(1.1); }
+            60% { transform: translateY(-10px) scale(1.05); }
         }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -523,7 +526,7 @@
             pointer-events: auto;
         }
         .unicorn-dancer {
-            font-size: clamp(100px, 25vw, 180px);
+            font-size: clamp(80px, 20vw, 150px);
             filter: drop-shadow(0 15px 10px rgba(0,0,0,0.2));
         }
         #praise-overlay.show .unicorn-dancer {
@@ -531,7 +534,7 @@
         }
         .praise-text {
             margin-top: 30px;
-            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-size: clamp(2rem, 7vw, 4rem);
             font-weight: 900;
             color: var(--primary);
             text-shadow: 2px 2px 0px #fff, 4px 4px 0px var(--gold);
@@ -540,7 +543,7 @@
         }
         
         .giant-emoji {
-            font-size: clamp(8rem, 25vw, 12rem);
+            font-size: clamp(7rem, 25vw, 12rem);
             animation: bounce 1.5s ease infinite;
             filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
         }
@@ -564,9 +567,9 @@
         <button class="btn-massive" onclick="initApp()">Start Playing 🔊</button>
     </div>
 
-    <div id="screen-menu" class="screen" style="padding-top: 40px;">
+    <div id="screen-menu" class="screen" style="padding-top: 30px;">
         <h1 style="font-size: clamp(1.8rem, 5vw, 3rem);">Rainbow Castle Map</h1>
-        <p class="subtitle">Choose your adventure!</p>
+        <p class="subtitle" style="margin-bottom: 15px;">Choose your adventure!</p>
         
         <div class="menu-container">
             <button class="btn-menu-item" id="btn-stage-1" onclick="loadStage(1)">
@@ -599,7 +602,6 @@
         </div>
         
         <div class="instruction-text" id="game-instruction">Listen...</div>
-        
         <div class="game-board" id="game-board"></div>
     </div>
 
@@ -614,8 +616,8 @@
         
         let globalTasksCompleted = 0;
         const TOTAL_STAGES = 7;
+        let bestVoice = null;
 
-        // Phonetic Dictionary ensures correct sounding of letters
         const phoneticDict = {
             'a': 'ah', 'b': 'buh', 'c': 'kuh', 'd': 'duh', 'e': 'eh', 'f': 'fff',
             'g': 'guh', 'h': 'huh', 'i': 'ih', 'j': 'juh', 'k': 'kuh', 'l': 'lll', 
@@ -631,7 +633,7 @@
             "Superstar reader!"
         ];
 
-        // Strict Requirement: ONLY SAFE WORDS
+        // Safe words curriculum
         const curriculum = {
             1: ['s', 'a', 't', 'm', 'p', 'd', 'r', 'f', 'g', 'c', 'n', 'h', 'i', 'o', 'u'], 
             2: ['in', 'on', 'at', 'up', 'to', 'do', 'go', 'so', 'no', 'me', 'we', 'be', 'he'], 
@@ -642,30 +644,14 @@
                 { word: 'bug', emoji: '🐛' }, { word: 'hug', emoji: '🤗' }, { word: 'map', emoji: '🗺️' }
             ],
             4: [ 
-                // Frozen word families: 1st letter dynamic, 2nd and 3rd frozen separated
-                { 
-                    frozen1: 'a', frozen2: 't', 
-                    words: [{c: 'c', emoji: '🐱'}, {c: 'b', emoji: '🦇'}, {c: 'h', emoji: '🎩'}, {c: 'r', emoji: '🐀'}] 
-                },
-                { 
-                    frozen1: 'e', frozen2: 'n', 
-                    words: [{c: 'p', emoji: '🖊️'}, {c: 'h', emoji: '🐔'}, {c: 't', emoji: '🔟'}] 
-                },
-                { 
-                    frozen1: 'u', frozen2: 'g', 
-                    words: [{c: 'b', emoji: '🐛'}, {c: 'm', emoji: '☕'}, {c: 'r', emoji: '🟪'}] 
-                },
-                { 
-                    frozen1: 'o', frozen2: 'g', 
-                    words: [{c: 'd', emoji: '🐶'}, {c: 'f', emoji: '🐸'}, {c: 'l', emoji: '🪵'}] 
-                }
+                { frozen1: 'a', frozen2: 't', words: [{c: 'c', emoji: '🐱'}, {c: 'b', emoji: '🦇'}, {c: 'h', emoji: '🎩'}, {c: 'r', emoji: '🐀'}] },
+                { frozen1: 'e', frozen2: 'n', words: [{c: 'p', emoji: '🖊️'}, {c: 'h', emoji: '🐔'}, {c: 't', emoji: '🔟'}] },
+                { frozen1: 'u', frozen2: 'g', words: [{c: 'b', emoji: '🐛'}, {c: 'm', emoji: '☕'}, {c: 'r', emoji: '🟪'}] },
+                { frozen1: 'o', frozen2: 'g', words: [{c: 'd', emoji: '🐶'}, {c: 'f', emoji: '🐸'}, {c: 'l', emoji: '🪵'}] }
             ],
             5: [ 
-                'I see a pink unicorn',
-                'The princess is happy',
-                'A rainbow is in the sky',
-                'Look at the soft cloud',
-                'The magic castle is big'
+                'I see a pink unicorn', 'The princess is happy', 'A rainbow is in the sky',
+                'Look at the soft cloud', 'The magic castle is big'
             ],
             6: [ 
                 { picture: '👸🦄🏰', text: 'The princess loves her unicorn. They play by the castle. It is fun.' },
@@ -674,7 +660,7 @@
                 { picture: '👸👑🦄', text: 'The princess finds a crown. She puts it on the unicorn. Good girl!' },
                 { picture: '🌙💤🦄', text: 'It is time to sleep. The moon is up. Goodnight little unicorn.' }
             ],
-            7: [ // Word Maker Safe Words
+            7: [ 
                 { word: 'cat', emoji: '🐱' }, { word: 'dog', emoji: '🐶' }, { word: 'pig', emoji: '🐷' },
                 { word: 'sun', emoji: '☀️' }, { word: 'fox', emoji: '🦊' }, { word: 'bug', emoji: '🐛' },
                 { word: 'cow', emoji: '🐮' }, { word: 'owl', emoji: '🦉' }
@@ -697,40 +683,31 @@
         }
 
         const bags = {};
-        for(let i=1; i<=TOTAL_STAGES; i++) {
-            bags[i] = new ShuffleBag(curriculum[i]);
-        }
+        for(let i=1; i<=TOTAL_STAGES; i++) bags[i] = new ShuffleBag(curriculum[i]);
 
         let currentStage = 1;
         let sequenceIndex = 0;
         let isInputLocked = false;
         
-        function updateMenuUI() {
-            const colors = ['#ff80ab', '#00b8d4', '#b388ff', '#00bcd4', '#ffd740', '#ff5252', '#ff9800'];
-            for (let i = 1; i <= TOTAL_STAGES; i++) {
-                const btn = document.getElementById(`btn-stage-${i}`);
-                if(btn) btn.style.borderColor = colors[i - 1] || '#ccc';
+        function getTeacherVoice() {
+            if (bestVoice) return bestVoice;
+            const voices = synth.getVoices();
+            const preferred = ['Google US English', 'Samantha', 'Karen', 'Microsoft Zira', 'Microsoft Aria', 'Tessa', 'Victoria'];
+            
+            for (let name of preferred) {
+                const voice = voices.find(v => v.name.includes(name));
+                if (voice) {
+                    bestVoice = voice;
+                    return voice;
+                }
             }
+            // Fallback to any english female voice
+            bestVoice = voices.find(v => v.lang.startsWith('en-') && v.name.toLowerCase().includes('female'))
+                     || voices.find(v => v.lang.startsWith('en-'));
+            return bestVoice;
         }
 
-        function showScreen(screenId) {
-            synth.cancel();
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-            if (screenId === 'screen-menu') updateMenuUI();
-        }
-
-        function initApp() {
-            synth.cancel();
-            let unlock = new SpeechSynthesisUtterance('');
-            unlock.volume = 0;
-            synth.speak(unlock);
-            isAudioUnlocked = true;
-            updateMenuUI();
-            showScreen('screen-menu');
-        }
-
-        function speak(text, rate = 0.85, pitch = 1.3, callback = null) {
+        function speak(text, rate = 0.85, pitch = 1.15, callback = null) {
             if (!isAudioUnlocked) {
                 if(callback) callback();
                 return;
@@ -739,11 +716,7 @@
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.rate = rate; 
             utterance.pitch = pitch; 
-            
-            const voices = synth.getVoices();
-            const voice = voices.find(v => v.lang.includes('en-US') && v.name.includes('Google')) 
-                       || voices.find(v => v.lang.includes('en-'));
-            if (voice) utterance.voice = voice;
+            utterance.voice = getTeacherVoice();
             
             if (callback) {
                 utterance.onend = callback;
@@ -768,19 +741,43 @@
                 let item = wordsArray[index];
                 const utterance = new SpeechSynthesisUtterance(item.text);
                 utterance.rate = item.rate || 0.85;
-                utterance.pitch = item.pitch || 1.3;
+                utterance.pitch = item.pitch || 1.15;
+                utterance.voice = getTeacherVoice();
                 
                 utterance.onend = () => {
                     index++;
                     setTimeout(speakNext, item.delayAfter || 150);
                 };
-                utterance.onerror = () => {
-                    index++;
-                    speakNext();
-                };
+                utterance.onerror = () => { index++; speakNext(); };
                 synth.speak(utterance);
             }
             speakNext();
+        }
+
+        function updateMenuUI() {
+            const colors = ['#ff80ab', '#00b8d4', '#b388ff', '#00bcd4', '#ffd740', '#ff5252', '#ff9800'];
+            for (let i = 1; i <= TOTAL_STAGES; i++) {
+                const btn = document.getElementById(`btn-stage-${i}`);
+                if(btn) btn.style.borderColor = colors[i - 1] || '#ccc';
+            }
+        }
+
+        function showScreen(screenId) {
+            synth.cancel();
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            if (screenId === 'screen-menu') updateMenuUI();
+        }
+
+        function initApp() {
+            synth.cancel();
+            let unlock = new SpeechSynthesisUtterance('');
+            unlock.volume = 0;
+            synth.speak(unlock);
+            isAudioUnlocked = true;
+            getTeacherVoice(); // Initialize voice cache
+            updateMenuUI();
+            showScreen('screen-menu');
         }
 
         function fireConfetti() {
@@ -811,7 +808,7 @@
             textEl.innerText = phrase;
             overlay.classList.add('show');
             
-            speak(phrase, 1.0, 1.4, () => {
+            speak(phrase, 1.0, 1.25, () => {
                 setTimeout(() => {
                     overlay.classList.remove('show');
                     nextRound();
@@ -832,10 +829,6 @@
             sequenceIndex = 0;
             isInputLocked = false;
             
-            // Clear global pointer events
-            window.onpointermove = null;
-            window.onpointerup = null;
-
             if (currentStage === 1) setupStage1(board, inst);
             if (currentStage === 2) setupStage2(board, inst);
             if (currentStage === 3) setupStage3(board, inst);
@@ -865,7 +858,7 @@
                     if (letter === targetLetter) {
                         isInputLocked = true;
                         block.classList.add('correct');
-                        speak("Yay!", 1.0, 1.5);
+                        speak("Yay!", 1.0, 1.3);
                         handleWinSequence();
                     } else {
                         block.classList.remove('incorrect');
@@ -886,15 +879,12 @@
             const letter2 = word[1];
             
             inst.innerText = "Stretch the snake!";
-            speak("Drag the star to stretch the sounds.", 0.9);
+            speak("Drag the star to stretch the sounds.");
 
             const wrapper = document.createElement('div');
             wrapper.className = 'slider-wrapper';
-            
             wrapper.innerHTML = `
-                <div class="slider-letters">
-                    <span>${letter1}</span><span>${letter2}</span>
-                </div>
+                <div class="slider-letters"><span>${letter1}</span><span>${letter2}</span></div>
                 <div class="slider-track" id="l2-track">
                     <div class="slider-progress" id="l2-prog"></div>
                     <div class="slider-thumb" id="l2-thumb">⭐</div>
@@ -908,30 +898,25 @@
 
             let dragActive = false;
             let trackWidth = 0;
-            let thumbWidth = 80;
-            
             let p1Played = false;
             let p2Played = false;
             let fullWordPlayed = false;
 
             thumb.addEventListener('pointerdown', (e) => {
                 if (isInputLocked) return;
+                thumb.setPointerCapture(e.pointerId);
                 dragActive = true;
-                trackWidth = track.offsetWidth - thumbWidth;
+                trackWidth = track.offsetWidth - thumb.offsetWidth;
                 thumb.style.transition = 'none';
                 prog.style.transition = 'none';
                 e.preventDefault();
             });
 
-            window.onpointermove = (e) => {
+            thumb.addEventListener('pointermove', (e) => {
                 if (!dragActive || isInputLocked) return;
-                e.preventDefault();
                 
-                let currentX = e.clientX || (e.touches && e.touches[0].clientX);
-                if(!currentX) return;
-
                 let trackLeft = track.getBoundingClientRect().left;
-                let diff = currentX - trackLeft - (thumbWidth / 2);
+                let diff = e.clientX - trackLeft - (thumb.offsetWidth / 2);
                 let progress = Math.max(0, Math.min(diff, trackWidth));
                 let percent = progress / trackWidth;
                 
@@ -940,12 +925,11 @@
 
                 if (percent > 0.15 && !p1Played) {
                     p1Played = true;
-                    speak(phoneticDict[letter1] || letter1, 0.6);
+                    speak(phoneticDict[letter1] || letter1, 0.6, 1.15);
                 }
-                
                 if (percent > 0.60 && !p2Played) {
                     p2Played = true;
-                    speak(phoneticDict[letter2] || letter2, 0.6);
+                    speak(phoneticDict[letter2] || letter2, 0.6, 1.15);
                 }
                 
                 if (percent >= 0.98 && !fullWordPlayed) {
@@ -957,35 +941,32 @@
                     prog.style.width = `100%`;
                     
                     setTimeout(() => {
-                        speak(word, 1.0, 1.4);
+                        speak(word, 1.0, 1.25);
                         thumb.innerText = "🦄";
                         handleWinSequence();
                     }, 300);
                 }
-            };
+            });
 
-            window.onpointerup = () => {
+            thumb.addEventListener('pointerup', (e) => {
                 if (!dragActive || isInputLocked) return;
                 dragActive = false;
+                thumb.releasePointerCapture(e.pointerId);
                 
                 thumb.style.transition = 'transform 0.3s ease';
                 prog.style.transition = 'width 0.3s ease';
                 thumb.style.transform = `translateX(0px)`;
                 prog.style.width = `0%`;
                 
-                p1Played = false;
-                p2Played = false;
+                p1Played = false; p2Played = false;
                 synth.cancel();
-            };
+            });
         }
 
         function setupStage3(board, inst) {
             const data = bags[3].next();
-            const word = data.word;
-            const emoji = data.emoji;
-            const letters = word.split('');
-            
-            inst.innerText = `Pop bubbles to spell: ${word}`;
+            const letters = data.word.split('');
+            inst.innerText = `Pop bubbles to spell: ${data.word}`;
             speak("Pop the bubbles in order.");
 
             letters.forEach((letter, index) => {
@@ -995,17 +976,15 @@
                 
                 block.onclick = () => {
                     if (isInputLocked) return;
-
                     if (index === sequenceIndex) {
                         block.classList.add('correct');
                         speak(phoneticDict[letter] || letter, 0.85);
                         sequenceIndex++;
-
                         if (sequenceIndex === letters.length) {
                             isInputLocked = true;
                             setTimeout(() => {
-                                board.innerHTML = `<div class="giant-emoji">${emoji}</div>`;
-                                speak(word, 1.0, 1.3);
+                                board.innerHTML = `<div class="giant-emoji">${data.emoji}</div>`;
+                                speak(data.word, 1.0, 1.25);
                                 handleWinSequence();
                             }, 1000);
                         }
@@ -1021,44 +1000,36 @@
         }
 
         function setupStage4(board, inst) {
-            const familyData = bags[4].next();
-            const f1 = familyData.frozen1;
-            const f2 = familyData.frozen2;
-            const wordsList = [...familyData.words].sort(() => Math.random() - 0.5);
+            const family = bags[4].next();
+            const f1 = family.frozen1;
+            const f2 = family.frozen2;
+            const wordsList = [...family.words].sort(() => Math.random() - 0.5);
             let usedCount = 0;
 
             inst.innerText = "Flip the calendar!";
-            speak("Tap a letter to make a word.", 0.9);
+            speak("Tap a letter to make a word.");
 
             const container = document.createElement('div');
             container.className = 'frozen-container';
-            
             const emojiEl = document.createElement('div');
             emojiEl.className = 'frozen-emoji-pop';
-            emojiEl.id = 'stage4-emoji';
             
             const row = document.createElement('div');
             row.className = 'frozen-row';
             
-            // Block 1 (Prefix/Calendar flip)
             const dropSlot = document.createElement('div');
             dropSlot.className = 'frozen-slot';
             dropSlot.innerText = '?';
             
-            // Block 2 (Frozen)
             const block2 = document.createElement('div');
             block2.className = 'frozen-block';
             block2.innerText = f1;
             
-            // Block 3 (Frozen)
             const block3 = document.createElement('div');
             block3.className = 'frozen-block';
             block3.innerText = f2;
             
-            row.appendChild(dropSlot);
-            row.appendChild(block2);
-            row.appendChild(block3);
-            row.appendChild(emojiEl);
+            row.append(dropSlot, block2, block3, emojiEl);
             
             const optsRow = document.createElement('div');
             optsRow.className = 'frozen-opts';
@@ -1074,23 +1045,20 @@
                     if (isInputLocked || btn.style.opacity === '0.5') return;
                     isInputLocked = true;
                     
-                    // Reset animations
                     dropSlot.classList.remove('animate-flip');
                     emojiEl.classList.remove('animate-emoji-pop');
-                    void dropSlot.offsetWidth; // reflow
+                    void dropSlot.offsetWidth; 
                     
                     btn.style.opacity = '0.5';
                     btn.style.pointerEvents = 'none';
                     dropSlot.innerText = wordObj.c;
                     dropSlot.classList.add('animate-flip'); 
                     
-                    let fullWord = wordObj.c + f1 + f2;
-                    
                     let seq = [
-                        { text: phoneticDict[wordObj.c] || wordObj.c, rate: 0.7, pitch: 1.2, delayAfter: 300 },
-                        { text: phoneticDict[f1] || f1, rate: 0.7, pitch: 1.2, delayAfter: 300 },
-                        { text: phoneticDict[f2] || f2, rate: 0.7, pitch: 1.2, delayAfter: 300 },
-                        { text: fullWord, rate: 1.0, pitch: 1.4, delayAfter: 100 }
+                        { text: phoneticDict[wordObj.c] || wordObj.c, rate: 0.7, delayAfter: 300 },
+                        { text: phoneticDict[f1] || f1, rate: 0.7, delayAfter: 300 },
+                        { text: phoneticDict[f2] || f2, rate: 0.7, delayAfter: 300 },
+                        { text: wordObj.c + f1 + f2, rate: 0.9, pitch: 1.25, delayAfter: 100 }
                     ];
 
                     speakSequence(seq, () => {
@@ -1118,17 +1086,15 @@
                 optsRow.appendChild(btn);
             });
 
-            container.appendChild(row);
-            container.appendChild(optsRow);
+            container.append(row, optsRow);
             board.appendChild(container);
         }
 
         function setupSequentialLevel(board, inst, stageNum, customClass) {
             const data = bags[stageNum].next();
             const words = data.split(' ');
-            
             inst.innerText = "Read the story steps!";
-            speak("Tap the clouds to read.", 0.9);
+            speak("Tap the clouds to read.");
 
             words.forEach((word, index) => {
                 let block = document.createElement('div');
@@ -1137,30 +1103,26 @@
                 
                 block.onclick = () => {
                     if (isInputLocked) return;
-
                     if (index === sequenceIndex) {
                         block.classList.add('correct');
-                        let cleanWord = word.replace(/[^\w\s]|_/g, "");
-                        speak(cleanWord, 0.85);
+                        speak(word.replace(/[^\w\s]|_/g, ""), 0.85);
                         sequenceIndex++;
-
                         if (sequenceIndex === words.length) {
                             isInputLocked = true;
                             setTimeout(() => {
-                                let blocks = board.children;
-                                for (let i=0; i<blocks.length; i++) {
-                                    blocks[i].classList.remove('correct');
-                                    blocks[i].classList.add('completed-blend');
-                                }
-                                speak(data, 1.0, 1.2);
+                                Array.from(board.children).forEach(b => {
+                                    b.classList.remove('correct');
+                                    b.classList.add('completed-blend');
+                                });
+                                speak(data, 0.9, 1.2);
                                 handleWinSequence();
                             }, 800);
                         }
                     } else if (index > sequenceIndex) {
-                        const correctBlock = board.children[sequenceIndex];
-                        correctBlock.classList.remove('hint-shake');
-                        void correctBlock.offsetWidth;
-                        correctBlock.classList.add('hint-shake');
+                        const cb = board.children[sequenceIndex];
+                        cb.classList.remove('hint-shake');
+                        void cb.offsetWidth;
+                        cb.classList.add('hint-shake');
                     }
                 };
                 board.appendChild(block);
@@ -1170,15 +1132,13 @@
         function setupStage6(board, inst) {
             const data = bags[6].next();
             inst.innerText = "Tap the words to read!";
-            speak("Tap the words to read the magic story.", 0.9);
+            speak("Tap the words to read the magic story.");
 
             const container = document.createElement('div');
             container.className = 'story-container';
-            
             const pic = document.createElement('div');
             pic.className = 'story-picture';
             pic.innerText = data.picture;
-            
             const textContainer = document.createElement('div');
             textContainer.className = 'story-text';
 
@@ -1192,62 +1152,50 @@
                 span.onclick = () => {
                     if (isInputLocked) return;
                     if (index === sequenceIndex) {
-                        span.classList.remove('story-word');
-                        span.classList.add('story-word', 'active-word');
-                        
-                        let cleanWord = word.replace(/[^\w\s]|_/g, "").toLowerCase();
-                        speak(cleanWord, 0.9);
+                        span.classList.replace('story-word', 'active-word');
+                        speak(word.replace(/[^\w\s]|_/g, "").toLowerCase(), 0.9);
                         sequenceIndex++;
 
-                        if (sequenceIndex < words.length) {
-                            textContainer.children[sequenceIndex].style.transform = 'scale(1.05)';
-                        }
-
+                        if (sequenceIndex < words.length) textContainer.children[sequenceIndex].style.transform = 'scale(1.05)';
                         if (sequenceIndex === words.length) {
                             isInputLocked = true;
                             setTimeout(() => {
-                                Array.from(textContainer.children).forEach(child => {
-                                    child.classList.remove('active-word');
-                                    child.classList.add('completed-word');
-                                    child.style.transform = 'none';
+                                Array.from(textContainer.children).forEach(c => {
+                                    c.classList.remove('active-word');
+                                    c.classList.add('completed-word');
+                                    c.style.transform = 'none';
                                 });
-                                speak(data.text, 1.0, 1.2);
+                                speak(data.text, 0.9, 1.15);
                                 handleWinSequence();
                             }, 800);
                         }
                     } else if (index > sequenceIndex) {
-                        const correctSpan = textContainer.children[sequenceIndex];
-                        correctSpan.classList.remove('hint-shake');
-                        void correctSpan.offsetWidth;
-                        correctSpan.classList.add('hint-shake');
+                        const cb = textContainer.children[sequenceIndex];
+                        cb.classList.remove('hint-shake');
+                        void cb.offsetWidth;
+                        cb.classList.add('hint-shake');
                     }
                 };
                 textContainer.appendChild(span);
             });
             
             textContainer.children[0].style.transform = 'scale(1.05)';
-            container.appendChild(pic);
-            container.appendChild(textContainer);
+            container.append(pic, textContainer);
             board.appendChild(container);
         }
 
         function setupStage7(board, inst) {
             const data = bags[7].next();
-            const word = data.word; // e.g. "cat"
-            const emoji = data.emoji;
-            const letters = word.split(''); // ['c', 'a', 't']
-            
-            // Jumble letters for bottom area
+            const letters = data.word.split('');
             const jumbled = [...letters].sort(() => Math.random() - 0.5);
             let filledCount = 0;
 
-            inst.innerText = `Make the word: ${word}`;
-            speak(`Drag the letters to spell ${word}.`);
+            inst.innerText = `Make the word: ${data.word}`;
+            speak(`Drag the letters to spell ${data.word}.`);
 
             const container = document.createElement('div');
             container.className = 'drag-container';
 
-            // Top Drop Zones
             const dropZonesDiv = document.createElement('div');
             dropZonesDiv.className = 'drop-zones';
             const dropTargets = [];
@@ -1256,175 +1204,99 @@
                 const zone = document.createElement('div');
                 zone.className = 'drop-zone';
                 zone.dataset.expected = targetLetter;
-                zone.dataset.index = i;
                 dropZonesDiv.appendChild(zone);
                 dropTargets.push(zone);
             });
 
-            // Center Emoji Pop (hidden initially)
             const centerEmoji = document.createElement('div');
             centerEmoji.className = 'drag-emoji-pop';
-            centerEmoji.innerText = emoji;
+            centerEmoji.innerText = data.emoji;
 
-            // Bottom Draggable Items Container
             const itemsArea = document.createElement('div');
             itemsArea.className = 'drag-items-area';
             
-            container.appendChild(dropZonesDiv);
-            container.appendChild(centerEmoji);
-            container.appendChild(itemsArea);
+            container.append(dropZonesDiv, centerEmoji, itemsArea);
             board.appendChild(container);
 
-            // Layout draggables after appending to DOM so we can get rects
-            const startPositions = [];
-            
-            // Need a slight delay to let DOM render for layout measurements
-            setTimeout(() => {
-                const areaRect = itemsArea.getBoundingClientRect();
-                const tileWidth = Math.min(110, window.innerWidth * 0.18);
-                const gap = 15;
-                const totalWidth = (tileWidth * 3) + (gap * 2);
-                const startXOffset = (areaRect.width - totalWidth) / 2;
+            jumbled.forEach(letter => {
+                const tile = document.createElement('div');
+                tile.className = 'draggable-tile';
+                tile.innerText = letter;
+                itemsArea.appendChild(tile);
 
-                jumbled.forEach((letter, index) => {
-                    const tile = document.createElement('div');
-                    tile.className = 'draggable-tile';
-                    tile.innerText = letter;
+                let activeDrag = false;
+                let initialX = 0, initialY = 0;
+                let xOffset = 0, yOffset = 0;
+
+                tile.addEventListener('pointerdown', (e) => {
+                    if (isInputLocked || tile.dataset.locked === 'true') return;
+                    tile.setPointerCapture(e.pointerId);
                     
-                    // Initial Layout positions (Relative to itemsArea)
-                    const leftPos = startXOffset + (index * (tileWidth + gap));
-                    tile.style.left = `${leftPos}px`;
-                    tile.style.bottom = `0px`;
-                    
-                    startPositions[index] = { left: leftPos, bottom: 0 };
-                    itemsArea.appendChild(tile);
+                    initialX = e.clientX - xOffset;
+                    initialY = e.clientY - yOffset;
 
-                    // Touch / Pointer Events for Dragging
-                    let activeDrag = false;
-                    let initialX = 0;
-                    let initialY = 0;
-                    let currentX = 0;
-                    let currentY = 0;
-                    
-                    // We move the element relatively using transforms during drag to keep it smooth
-                    let xOffset = 0;
-                    let yOffset = 0;
-
-                    const dragStart = (e) => {
-                        if (isInputLocked || tile.dataset.locked === 'true') return;
-                        
-                        initialX = e.clientX || (e.touches && e.touches[0].clientX);
-                        initialY = e.clientY || (e.touches && e.touches[0].clientY);
-
-                        if (e.type === 'touchstart') {
-                            initialX = e.touches[0].clientX;
-                            initialY = e.touches[0].clientY;
-                        } else {
-                            initialX = e.clientX;
-                            initialY = e.clientY;
-                        }
-
-                        activeDrag = true;
-                        tile.classList.add('dragging');
-                        tile.style.transition = 'none';
-                    };
-
-                    const dragAction = (e) => {
-                        if (!activeDrag || isInputLocked) return;
-                        e.preventDefault(); // crucial for mobile to stop scrolling
-
-                        if (e.type === 'touchmove') {
-                            currentX = e.touches[0].clientX - initialX;
-                            currentY = e.touches[0].clientY - initialY;
-                        } else {
-                            currentX = e.clientX - initialX;
-                            currentY = e.clientY - initialY;
-                        }
-
-                        xOffset = currentX;
-                        yOffset = currentY;
-
-                        tile.style.transform = `translate(${xOffset}px, ${yOffset}px) scale(1.1)`;
-                    };
-
-                    const dragEnd = (e) => {
-                        if (!activeDrag) return;
-                        initialX = currentX;
-                        initialY = currentY;
-                        activeDrag = false;
-                        tile.classList.remove('dragging');
-                        
-                        // Collision Detection
-                        const tileRect = tile.getBoundingClientRect();
-                        let droppedOnTarget = null;
-                        
-                        // Check overlap with drop zones
-                        for (let zone of dropTargets) {
-                            if (zone.dataset.filled === 'true') continue;
-                            const zoneRect = zone.getBoundingClientRect();
-                            
-                            // Simple bounding box intersection
-                            const overlap = !(tileRect.right < zoneRect.left || 
-                                              tileRect.left > zoneRect.right || 
-                                              tileRect.bottom < zoneRect.top || 
-                                              tileRect.top > zoneRect.bottom);
-                            if (overlap) {
-                                droppedOnTarget = zone;
-                                break;
-                            }
-                        }
-
-                        if (droppedOnTarget && droppedOnTarget.dataset.expected === letter) {
-                            // Lock it in
-                            speak(phoneticDict[letter] || letter, 0.85);
-                            tile.dataset.locked = 'true';
-                            droppedOnTarget.dataset.filled = 'true';
-                            droppedOnTarget.classList.add('filled');
-                            droppedOnTarget.innerText = letter;
-                            
-                            // Hide original tile visually
-                            tile.style.display = 'none';
-                            
-                            filledCount++;
-                            
-                            // Check win condition
-                            if (filledCount === 3) {
-                                isInputLocked = true;
-                                setTimeout(() => {
-                                    speak(word, 1.0, 1.3);
-                                    centerEmoji.classList.add('show');
-                                    handleWinSequence(2500);
-                                }, 500);
-                            }
-                        } else {
-                            // Snap back
-                            if (droppedOnTarget) {
-                                // Shook for incorrect
-                                droppedOnTarget.classList.remove('hint-shake');
-                                void droppedOnTarget.offsetWidth;
-                                droppedOnTarget.classList.add('hint-shake');
-                            }
-                            
-                            tile.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                            tile.style.transform = `translate(0px, 0px) scale(1)`;
-                            xOffset = 0;
-                            yOffset = 0;
-                        }
-                    };
-
-                    // Bind events for both pointer and touch fallback
-                    tile.addEventListener('pointerdown', dragStart);
-                    window.addEventListener('pointermove', dragAction, {passive: false});
-                    window.addEventListener('pointerup', dragEnd);
-                    
-                    // Fallback Touch specifically for tricky iOS Safari behaviors
-                    tile.addEventListener('touchstart', dragStart, {passive: false});
-                    window.addEventListener('touchmove', dragAction, {passive: false});
-                    window.addEventListener('touchend', dragEnd);
+                    activeDrag = true;
+                    tile.classList.add('dragging');
+                    tile.style.transition = 'none';
+                    e.preventDefault();
                 });
-            }, 50); // small delay to ensure rendering
-        }
 
+                tile.addEventListener('pointermove', (e) => {
+                    if (!activeDrag || isInputLocked) return;
+                    e.preventDefault();
+                    
+                    xOffset = e.clientX - initialX;
+                    yOffset = e.clientY - initialY;
+                    tile.style.transform = `translate(${xOffset}px, ${yOffset}px) scale(1.1)`;
+                });
+
+                tile.addEventListener('pointerup', (e) => {
+                    if (!activeDrag) return;
+                    activeDrag = false;
+                    tile.releasePointerCapture(e.pointerId);
+                    tile.classList.remove('dragging');
+                    
+                    const tileRect = tile.getBoundingClientRect();
+                    let droppedOnTarget = null;
+                    
+                    for (let zone of dropTargets) {
+                        if (zone.dataset.filled === 'true') continue;
+                        const zoneRect = zone.getBoundingClientRect();
+                        const overlap = !(tileRect.right < zoneRect.left || tileRect.left > zoneRect.right || 
+                                          tileRect.bottom < zoneRect.top || tileRect.top > zoneRect.bottom);
+                        if (overlap) { droppedOnTarget = zone; break; }
+                    }
+
+                    if (droppedOnTarget && droppedOnTarget.dataset.expected === letter) {
+                        speak(phoneticDict[letter] || letter, 0.85);
+                        tile.dataset.locked = 'true';
+                        droppedOnTarget.dataset.filled = 'true';
+                        droppedOnTarget.classList.add('filled');
+                        droppedOnTarget.innerText = letter;
+                        tile.style.display = 'none';
+                        
+                        filledCount++;
+                        if (filledCount === 3) {
+                            isInputLocked = true;
+                            setTimeout(() => {
+                                speak(data.word, 0.9, 1.25);
+                                centerEmoji.classList.add('show');
+                                handleWinSequence(2500);
+                            }, 500);
+                        }
+                    } else {
+                        if (droppedOnTarget) {
+                            droppedOnTarget.classList.remove('hint-shake');
+                            void droppedOnTarget.offsetWidth;
+                            droppedOnTarget.classList.add('hint-shake');
+                        }
+                        tile.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                        xOffset = 0; yOffset = 0;
+                        tile.style.transform = `translate(0px, 0px) scale(1)`;
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
